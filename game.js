@@ -12,6 +12,7 @@ class Consumption extends Game {
 	setupPlayers() {
 		this.fish = new Fish({'position' : {'x': 150, 'y' : 150}});
 		this.add('fish', this.fish);
+		this.things['food'] = [];
 		console.log(this.things['fish']);
 	}
 
@@ -35,12 +36,29 @@ class Consumption extends Game {
 	onMouseMove(x, y) {
 		this.fish.target = {'x' : x, 'y' : y};
 	}
+
+	installGroupLoops() {
+		super.installGroupLoops();
+
+		this.loopForGroup['fish'] = function(thing, game) {
+			var foods = game.things['food'];
+			for (var i = 0; i < foods.length; i++) {
+				var food = foods[i];
+				if (getDistance(thing, food) < thing.size) {
+					food.gone = true;
+					thing.size+= 4;
+				}
+			}
+
+			return thing;
+		}
+	}
 }
 
 class Fish extends Thing {
 	constructor(options) {
 		super(options);
-		this.size = 5;
+		this.size = 10;
 		this.target = this.position();
 	}
 
