@@ -46,6 +46,7 @@ class Client {
 	installKeyboardInput() {
 		window.addEventListener("keydown", this.onKeyDown.bind(this), true);
 		window.addEventListener("keyup", this.onKeyUp.bind(this), true);
+		window.addEventListener("mousemove", this.onMouseMove.bind(this), true);
 
 		this.key_pressed_map = [];
 
@@ -151,6 +152,8 @@ class Client {
 
 	}
 
+
+
 	onKeyUp(event) {
 		this.key_pressed_map[this.key_map[event.keyCode]] = false;
 	}
@@ -158,6 +161,13 @@ class Client {
 	onKeyDown(event) {
 		event.preventDefault();
 		this.key_pressed_map[this.key_map[event.keyCode]] = true;
+	}
+
+	onMouseMove(event) {
+		var x = event.clientX - this.canvas.getBoundingClientRect().left;
+		var y = event.clientY - this.canvas.getBoundingClientRect().top;
+
+		this.game.onMouseMove(x, y);
 	}
 
 	onMouseUp(event) {

@@ -24,12 +24,17 @@ class Consumption extends Game {
 
 	onMouseDown(x, y) {
 	}
+
+	onMouseMove(x, y) {
+		this.fish.target = {'x' : x, 'y' : y};
+	}
 }
 
 class Fish extends Thing {
 	constructor(options) {
 		super(options);
 		this.size = 40;
+		this.target = this.position();
 	}
 
 }
