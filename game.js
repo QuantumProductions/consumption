@@ -22,7 +22,14 @@ class Consumption extends Game {
 		
 	}
 
+	spawnFood(x) {
+		var f = new Food({'position' : {'x' : x, 'y' : 0}});
+		console.log("f" + f);
+		this.add('food', f);
+	}
+
 	onMouseDown(x, y) {
+		this.spawnFood(x);
 	}
 
 	onMouseMove(x, y) {
@@ -33,8 +40,22 @@ class Consumption extends Game {
 class Fish extends Thing {
 	constructor(options) {
 		super(options);
-		this.size = 40;
+		this.size = 5;
 		this.target = this.position();
+	}
+
+	loop() {
+		super.loop();
+		var eyeAngle = getAngleAsXY(this, this.target);
+		this.mx = eyeAngle.x;
+		this.my = eyeAngle.y;
+	}
+}
+
+class Food extends Thing {
+	constructor(options) {
+		super(options);
+		this.my = 2;
 	}
 
 }

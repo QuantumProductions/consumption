@@ -28,3 +28,6 @@ Fish.prototype.draw = function(client, context) {
 	context.closePath();
 };
 
+Food.prototype.draw = function(client, context) {
+	client.drawRect(this.x,this.y, 16, 16, 'green');
+}
